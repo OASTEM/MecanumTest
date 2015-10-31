@@ -24,12 +24,21 @@ import edu.wpi.first.wpilibj.Timer;
  * this system. Use IterativeRobot or Command-Based instead if you're new.
  */
 public class Robot extends SampleRobot {
-    RobotDrive myRobot;
+    
+	RobotDrive mecanum;
     Joystick stick;
 
+    private static final int FRONT_RIGHT_MECANUM = 0;
+    private static final int BACK_RIGHT_MECANUM = 1;
+    private static final int FRONT_LEFT_MECANUM = 2;
+    private static final int BACK_LEFT_MECANUM = 3;
+    
+    private static final int ROTATE_CLOCK_BUTT = 5;
+    private static final int ROTATE_COUNT_BUTT = 4;
+    
+    
     public Robot() {
-        myRobot = new RobotDrive(0, 1);
-        myRobot.setExpiration(0.1);
+        mecanum = new RobotDrive(FRONT_LEFT_MECANUM, BACK_LEFT_MECANUM, FRONT_RIGHT_MECANUM, BACK_RIGHT_MECANUM);
         stick = new Joystick(0);
     }
 
@@ -37,23 +46,31 @@ public class Robot extends SampleRobot {
      * Drive left & right motors for 2 seconds then stop
      */
     public void autonomous() {
-        myRobot.setSafetyEnabled(false);
-        myRobot.drive(-0.5, 0.0);	// drive forwards half speed
-        Timer.delay(2.0);		//    for 2 seconds
-        myRobot.drive(0.0, 0.0);	// stop robot
+    	
     }
 
-    /**
+    /**.g
      * Runs the motors with arcade steering.
      */
     public void operatorControl() {
-        myRobot.setSafetyEnabled(true);
         while (isOperatorControl() && isEnabled()) {
-            myRobot.arcadeDrive(stick); // drive with arcade style (use right stick)
-            Timer.delay(0.005);		// wait for a motor update time
+            mecanum.mecanumDrive_Cartesian(stick.getX(), stick.getY(), getRotation(), 0); 
         }
     }
+    
+    private double getRotation()
+    {
+    	if (stick.getRawButton(ROTATE_CLOCK_BUTT))
+    		return scaleZ(stick.getZ());
+    	else if (stick.getRawButton(ROTATE_COUNT_BUTT))
+    		return -scaleZ(stick.getZ());
+    	return 0;
+    }
 
+    private double scaleZ(double rawZ) {
+		return Math.min(1.0, 0.5 - 0.3 * rawZ);
+	}
+    
     /**
      * Runs during test mode
      */
