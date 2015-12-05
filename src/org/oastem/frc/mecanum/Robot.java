@@ -2,10 +2,13 @@
 package org.oastem.frc.mecanum;
 
 
+import org.oastem.frc.Dashboard;
+
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This is a demo program showing the use of the RobotDrive class.
@@ -25,9 +28,10 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Robot extends SampleRobot {
     
-	RobotDrive mecanum;
-    Joystick stickRig;
-    Joystick stickLef;
+	private RobotDrive mecanum;
+    private Joystick stickRig;
+    private Joystick stickLef;
+    private Dashboard dash;
 
     private static final int FRONT_RIGHT_MECANUM = 0;
     private static final int BACK_RIGHT_MECANUM = 1;
@@ -42,6 +46,7 @@ public class Robot extends SampleRobot {
         mecanum = new RobotDrive(FRONT_LEFT_MECANUM, BACK_LEFT_MECANUM, FRONT_RIGHT_MECANUM, BACK_RIGHT_MECANUM);
         stickRig = new Joystick(0);
         stickLef = new Joystick(1);
+        dash = new Dashboard();
     }
 
     /**
@@ -57,6 +62,8 @@ public class Robot extends SampleRobot {
     public void operatorControl() {
         while (isOperatorControl() && isEnabled()) {
             mecanum.tankDrive(-stickLef.getY(), -stickRig.getY());
+            dash.putNumber("Right joy", -stickRig.getY());
+            dash.putNumber("Left joy", stickLef.getY());
         	//mecanum.mecanumDrive_Cartesian(stick.getX(), stick.getY(), getRotation(), 0); 
         }
     }
