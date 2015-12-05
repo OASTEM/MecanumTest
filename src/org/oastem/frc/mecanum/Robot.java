@@ -54,7 +54,8 @@ public class Robot extends SampleRobot {
      */
     public void operatorControl() {
         while (isOperatorControl() && isEnabled()) {
-            mecanum.mecanumDrive_Cartesian(stick.getX(), stick.getY(), getRotation(), 0); 
+            mecanum.arcadeDrive(stick);
+        	//mecanum.mecanumDrive_Cartesian(stick.getX(), stick.getY(), getRotation(), 0); 
         }
     }
     
