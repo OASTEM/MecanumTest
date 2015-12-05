@@ -26,7 +26,8 @@ import edu.wpi.first.wpilibj.Timer;
 public class Robot extends SampleRobot {
     
 	RobotDrive mecanum;
-    Joystick stick;
+    Joystick stickRig;
+    Joystick stickLef;
 
     private static final int FRONT_RIGHT_MECANUM = 0;
     private static final int BACK_RIGHT_MECANUM = 1;
@@ -39,7 +40,8 @@ public class Robot extends SampleRobot {
     
     public Robot() {
         mecanum = new RobotDrive(FRONT_LEFT_MECANUM, BACK_LEFT_MECANUM, FRONT_RIGHT_MECANUM, BACK_RIGHT_MECANUM);
-        stick = new Joystick(0);
+        stickRig = new Joystick(0);
+        stickLef = new Joystick(1);
     }
 
     /**
@@ -54,17 +56,17 @@ public class Robot extends SampleRobot {
      */
     public void operatorControl() {
         while (isOperatorControl() && isEnabled()) {
-            mecanum.arcadeDrive(stick);
+            mecanum.tankDrive(-stickLef.getY(), -stickRig.getY());
         	//mecanum.mecanumDrive_Cartesian(stick.getX(), stick.getY(), getRotation(), 0); 
         }
     }
     
     private double getRotation()
     {
-    	if (stick.getRawButton(ROTATE_CLOCK_BUTT))
-    		return scaleZ(stick.getZ());
-    	else if (stick.getRawButton(ROTATE_COUNT_BUTT))
-    		return -scaleZ(stick.getZ());
+    	if (stickRig.getRawButton(ROTATE_CLOCK_BUTT))
+    		return scaleZ(stickRig.getZ());
+    	else if (stickRig.getRawButton(ROTATE_COUNT_BUTT))
+    		return -scaleZ(stickRig.getZ());
     	return 0;
     }
 
