@@ -28,10 +28,10 @@ public class Robot extends SampleRobot {
 	RobotDrive mecanum;
     Joystick stick;
 
-    private static final int FRONT_RIGHT_MECANUM = 4;
-    private static final int BACK_RIGHT_MECANUM = 3;
-    private static final int FRONT_LEFT_MECANUM = 1;
-    private static final int BACK_LEFT_MECANUM = 2;
+    private static final int FRONT_RIGHT_MECANUM = 0;
+    private static final int BACK_RIGHT_MECANUM = 1;
+    private static final int FRONT_LEFT_MECANUM = 2;
+    private static final int BACK_LEFT_MECANUM = 3;
     
     private static final int ROTATE_CLOCK_BUTT = 5;
     private static final int ROTATE_COUNT_BUTT = 4;
