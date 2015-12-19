@@ -3,6 +3,7 @@ package org.oastem.frc.mecanum;
 
 
 import org.oastem.frc.Dashboard;
+import org.oastem.frc.sensor.ADW22307Gyro;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -32,6 +33,7 @@ public class Robot extends SampleRobot {
     private Joystick stickRig;
     private Joystick stickLef;
     private Dashboard dash;
+    private ADW22307Gyro gro;
 
     private static final int FRONT_RIGHT_MECANUM = 0;
     private static final int BACK_RIGHT_MECANUM = 1;
@@ -47,6 +49,7 @@ public class Robot extends SampleRobot {
         stickRig = new Joystick(0);
         stickLef = new Joystick(1);
         dash = new Dashboard();
+        gro = new ADW22307Gyro(0);
     }
 
     /**
@@ -56,7 +59,7 @@ public class Robot extends SampleRobot {
     	
     }
 
-    /**.g
+    /**
      * Runs the motors with arcade steering.
      */
     public void operatorControl() {
@@ -64,6 +67,9 @@ public class Robot extends SampleRobot {
             mecanum.tankDrive(-stickLef.getY(), -stickRig.getY());
             dash.putNumber("Right joy", -stickRig.getY());
             dash.putNumber("Left joy", stickLef.getY());
+            dash.putNumber("Gyro Value", gro.getAngle());
+            dash.putNumber("Swag", 2);
+            System.out.println("2");
         	//mecanum.mecanumDrive_Cartesian(stick.getX(), stick.getY(), getRotation(), 0); 
         }
     }
