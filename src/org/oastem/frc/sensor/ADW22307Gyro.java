@@ -4,7 +4,7 @@
  */
 package org.oastem.frc.sensor;
 
-import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
 
 /**
  * Enclosure class for the Gyro class, customized to deal with the constant
@@ -13,13 +13,13 @@ import edu.wpi.first.wpilibj.Gyro;
  * @author KTOmega
  */
 public class ADW22307Gyro {
-    private Gyro g;
+    private AnalogGyro g;
     //private static final double DRIFT_PER_SECOND = 0.014578491443051003;
     private static final double DRIFT_PER_SECOND = 0.048;
     private long lastUpdateTime = 0;
     
     public ADW22307Gyro(int port) {
-        g = new Gyro(port);
+        g = new AnalogGyro(port);
         lastUpdateTime = System.currentTimeMillis();
         g.setSensitivity(7000);
         initialize();
