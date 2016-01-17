@@ -35,10 +35,10 @@ public class Robot extends SampleRobot {
     private Dashboard dash;
     private ADW22307Gyro gro;
 
-    private static final int FRONT_RIGHT_MECANUM = 0;
-    private static final int BACK_RIGHT_MECANUM = 1;
-    private static final int FRONT_LEFT_MECANUM = 2;
-    private static final int BACK_LEFT_MECANUM = 3;
+    private static final int FRONT_RIGHT_MECANUM = 3;
+    private static final int BACK_RIGHT_MECANUM = 2;
+    private static final int FRONT_LEFT_MECANUM = 1;
+    private static final int BACK_LEFT_MECANUM = 0;
     
     private static final int ROTATE_CLOCK_BUTT = 5;
     private static final int ROTATE_COUNT_BUTT = 4;
@@ -64,13 +64,14 @@ public class Robot extends SampleRobot {
      */
     public void operatorControl() {
         while (isOperatorControl() && isEnabled()) {
-            mecanum.tankDrive(-stickLef.getY(), -stickRig.getY());
-            dash.putNumber("Right joy", -stickRig.getY());
+            //mecanum.tankDrive(-stickLef.getY(), -stickRig.getY());
+            dash.putNumber("Right joy WHY", -stickRig.getY());
+            dash.putNumber("Right joy EX", -stickRig.getX());
             dash.putNumber("Left joy", stickLef.getY());
             dash.putNumber("Gyro Value", gro.getAngle());
             dash.putNumber("Swag", 2);
             System.out.println("2");
-        	//mecanum.mecanumDrive_Cartesian(stick.getX(), stick.getY(), getRotation(), 0); 
+        	mecanum.mecanumDrive_Cartesian(stickRig.getX(), stickRig.getY(), getRotation(), 0); 
         }
     }
     
